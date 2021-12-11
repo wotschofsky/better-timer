@@ -3,18 +3,24 @@
   "description": "A promise-based timer that can be paused",
   "version": "1.0.0",
   "author": "Felix Wotschofsky <hello@felisk.io>",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "license": "MIT",
-  "scripts": {
-    "build": "rm -rf lib/ && tsc"
-  },
-  "devDependencies": {
-    "typescript": "^3.8.3"
-  },
+  "main": "dist/main/index.js",
+  "types": "dist/main/index.d.ts",
+  "module": "dist/module/index.js",
+  "unpkg": "dist/better-timer.min.js",
+  "files": [
+    "dist/",
+    "!**/*.tsbuildinfo",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/feliskio/better-timer.git"
+  },
+  "homepage": "https://github.com/feliskio/better-timer#readme",
+  "bugs": {
+    "url": "https://github.com/feliskio/better-timer/issues"
   },
   "keywords": [
     "pauseable",
@@ -22,9 +28,25 @@
     "node",
     "browser"
   ],
-  "bugs": {
-    "url": "https://github.com/feliskio/better-timer/issues"
+  "scripts": {
+    "prebuild": "rm -rf dist/",
+    "build": "run-p build:*",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "build:bundle": "esbuild src/bundle.ts --bundle --sourcemap --platform=browser --outfile=dist/better-timer.js",
+    "build:bundle-min": "esbuild src/index.ts --bundle --sourcemap --platform=browser --minify --outfile=dist/better-timer.min.js",
+    "predev": "rm -rf dist/",
+    "dev": "run-p dev:*",
+    "dev:main": "tsc -p tsconfig.json -w",
+    "dev:module": "tsc -p tsconfig.module.json -w",
+    "dev:bundle": "esbuild src/bundle.ts --bundle --sourcemap=inline --platform=browser --outfile=dist/better-timer.js --watch",
+    "dev:bundle-min": "esbuild src/index.ts --bundle --sourcemap=inline --platform=browser --minify --outfile=dist/better-timer.min.js --watch",
+    "release": "release-it"
   },
-  "homepage": "https://github.com/feliskio/better-timer#readme",
-  "dependencies": {}
+  "devDependencies": {
+    "esbuild": "^0.14.2",
+    "npm-run-all": "^4.1.5",
+    "release-it": "^14.11.8",
+    "typescript": "^4.5.3"
+  }
 }
