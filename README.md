@@ -5,9 +5,26 @@
 Timer class that supports both promises and multiple callbacks.
 
 ## Installation
-`npm install --save better-timer` \
-OR \
-`yarn add better-timer`
+
+Add the script to your project through a package manager:
+
+`$ npm i better-timer`
+
+or
+
+`$ yarn add better-timer`
+
+Alternatively you can also import the script found in the releases section on GitHub directly. If you choose this option you won't need to use imports going forward - everything will all be available to you automatically.
+
+```html
+<script src="better-timer.min.js"></script>
+```
+
+Or include through a public CDN:
+
+```html
+<script src="https://unpkg.com/better-timer@2/dist/better-timer.min.js"></script>
+```
 
 ## General Api
 
@@ -20,7 +37,7 @@ OR \
 ```javascript
   import Timer from 'better-timer';
   // OR
-  const Timer = require('better-timer').default;
+  const Timer = require('better-timer');
 
   // Duration in Milliseconds
   const duration = 1000;
