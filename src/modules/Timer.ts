@@ -1,6 +1,4 @@
-interface TimerCallback {
-  (): any;
-}
+type TimerCallback = () => void;
 
 export default class Timer {
   private callbacks: TimerCallback[] = [];
@@ -21,15 +19,13 @@ export default class Timer {
   private execCallbacks() {
     this.callbacks.forEach((callback) => {
       callback();
-    })
+    });
   }
 
   public get promise() {
-    if ('Promise' in window) {
-      return new Promise((resolve) => {
-        this.callbacks.push(resolve);
-      });
-    }
+    return new Promise<void>((resolve) => {
+      this.callbacks.push(resolve);
+    });
   }
 
   private createTimer(duration: number) {
